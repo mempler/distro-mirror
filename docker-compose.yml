@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  arch-mirror:
+    build: ./arch
+    container_name: arch-mirror
+    ports:
+      - "8081:80"
+    volumes:
+      - arch_data:/var/www/html/arch
+
+  ubuntu-mirror:
+    build: ./ubuntu
+    container_name: ubuntu-mirror
+    ports:
+      - "8082:80"
+    volumes:
+      - ubuntu_data:/var/www/html/ubuntu
+
+volumes:
+  arch_data:
+  ubuntu_data:
