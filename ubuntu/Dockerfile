@@ -5,7 +5,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* && \
     mkdir -p /var/www/ubuntu && \
     touch /var/log/sync.log && \
-    printf "SHELL=/bin/bash\nPATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin\n*/5 * * * * root /usr/local/bin/sync.sh >> /var/log/sync.log 2>&1\n" > /etc/cron.d/mirrorcron && \
+    printf "SHELL=/bin/bash\nPATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin\n17 */6 * * * root /usr/local/bin/sync.sh >> /var/log/sync.log 2>&1\n" > /etc/cron.d/mirrorcron && \
     chmod 0644 /etc/cron.d/mirrorcron
 
 COPY --chmod=0755 sync.sh /usr/local/bin/sync.sh
