@@ -1,7 +1,6 @@
 services:
   arch-mirror:
     build: ./arch
-    container_name: arch-mirror
     ports:
       - "20450:80"
     volumes:
@@ -23,7 +22,6 @@ services:
 
   ubuntu-mirror:
     build: ./ubuntu
-    container_name: ubuntu-mirror
     ports:
       - "20451:80"
     volumes:
