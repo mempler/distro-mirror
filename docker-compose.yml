@@ -8,8 +8,10 @@ services:
     deploy:
       replicas: 1
       placement:
-        preferences:
-          - spread: node.labels.zone
+        constraints:
+          - node.labels.mirror.arch == true
+      restart_policy:
+        condition: on-failure
       resources:
         limits:
           memory: 2G
@@ -27,8 +29,10 @@ services:
     deploy:
       replicas: 1
       placement:
-        preferences:
-          - spread: node.labels.zone
+        constraints:
+          - node.labels.mirror.ubuntu == true
+      restart_policy:
+        condition: on-failure
       resources:
         limits:
           memory: 2G
