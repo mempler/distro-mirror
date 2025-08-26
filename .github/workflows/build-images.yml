@@ -29,21 +29,29 @@ jobs:
     strategy:
       matrix:
         include:
-          - name: arch-mirror
+          - name: arch-mirror-x86_64
             context: ./arch
             image-name: ${{ github.repository }}/arch-mirror
-            platform:
-              - linux/amd64
-              - linux/arm64
+            platform: linux/amd64
             runner: ubuntu-latest
 
-          - name: ubuntu-mirror
+          - name: arch-mirror-aarch64
+            context: ./arch
+            image-name: ${{ github.repository }}/arch-mirror
+            platform: linux/arm64
+            runner: ubuntu-24.04-arm
+
+          - name: ubuntu-mirror-x86_64
             context: ./ubuntu
             image-name: ${{ github.repository }}/ubuntu-mirror
-            platform:
-              - linux/amd64
-              - linux/arm64
+            platform: linux/amd64
             runner: ubuntu-latest
+
+          - name: ubuntu-mirror-aarch64
+            context: ./ubuntu
+            image-name: ${{ github.repository }}/ubuntu-mirror
+            platform: linux/arm64
+            runner: ubuntu-24.04-arm
 
       fail-fast: false
 
@@ -79,7 +87,7 @@ jobs:
             type=raw,value=latest,enable={{is_default_branch}}
 
       - name: Build and push ${{ matrix.name }}
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: ${{ matrix.context }}
           platforms: ${{ matrix.platform }}
