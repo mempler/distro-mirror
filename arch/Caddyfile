@@ -1,4 +1,6 @@
 :80
 
 root * /var/www/arch
-file_server browse
+file_server browse {
+	hide .~tmp~* .*~ .*.tmp .DS_Store Thumbs.db
+}
