@@ -69,7 +69,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.REGISTRY }}/${{ github.repository }}/distro-mirror/${{ matrix.name }}
+          images: ${{ env.REGISTRY }}/${{ github.repository }}/${{ matrix.name }}
           tags: |
             type=ref,event=branch
             type=ref,event=pr
