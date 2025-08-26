@@ -1,4 +1,4 @@
 #!/bin/bash
 
 service cron start
-nginx -g "daemon off;"
+caddy run --config /etc/caddy/Caddyfile

@@ -2,10 +2,24 @@
 
 set -e
 
+echo "==========================================" >> /var/log/sync.log
 echo "[$(date)] sync.sh started" >> /var/log/sync.log
+echo "[$(date)] Starting Ubuntu mirror sync" >> /var/log/sync.log
 
-MIRROR_DIR="/var/www/html/ubuntu"
+MIRROR_DIR="/var/www/ubuntu"
 REMOTE="rsync://archive.ubuntu.com/ubuntu/"
 
+echo "[$(date)] Mirror: $REMOTE" >> /var/log/sync.log
+echo "[$(date)] Local directory: $MIRROR_DIR" >> /var/log/sync.log
+
 mkdir -p "$MIRROR_DIR"
-rsync -rtlH --delete-after --delay-updates --safe-links --progress "$REMOTE" "$MIRROR_DIR" >> /var/log/sync.log 2>&1
+echo "[$(date)] Starting rsync..." >> /var/log/sync.log
+
+if rsync -rtlH --delete-after --delay-updates --safe-links --progress "$REMOTE" "$MIRROR_DIR" >> /var/log/sync.log 2>&1; then
+    echo "[$(date)] Sync completed successfully" >> /var/log/sync.log
+else
+    echo "[$(date)] Sync failed with exit code $?" >> /var/log/sync.log
+fi
+
+echo "[$(date)] sync.sh finished" >> /var/log/sync.log
+echo "==========================================" >> /var/log/sync.log

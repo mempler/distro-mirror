@@ -1,22 +1,52 @@
-version: '3'
-
 services:
   arch-mirror:
     build: ./arch
     container_name: arch-mirror
     ports:
-      - "8081:80"
+      - "20450:80"
     volumes:
-      - arch_data:/var/www/html/arch
+      - arch_data:/var/www/arch
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == worker
+        preferences:
+          - spread: node.labels.zone
+      resources:
+        limits:
+          memory: 2G
+        reservations:
+          memory: 1G
+    networks:
+      - mirror_network
 
   ubuntu-mirror:
     build: ./ubuntu
     container_name: ubuntu-mirror
     ports:
-      - "8082:80"
+      - "20451:80"
     volumes:
-      - ubuntu_data:/var/www/html/ubuntu
+      - ubuntu_data:/var/www/ubuntu
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == worker
+        preferences:
+          - spread: node.labels.zone
+      resources:
+        limits:
+          memory: 2G
+        reservations:
+          memory: 1G
+    networks:
+      - mirror_network
 
 volumes:
   arch_data:
   ubuntu_data:
+
+networks:
+  mirror_network:
+    driver: overlay
