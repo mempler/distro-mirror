@@ -1,6 +1,6 @@
 services:
   arch-mirror:
-    build: ./arch
+    image: ghcr.io/mempler/distro-mirror/arch:main
     ports:
       - "20450:80"
     volumes:
@@ -21,7 +21,7 @@ services:
       - mirror_network
 
   ubuntu-mirror:
-    build: ./ubuntu
+    image: ghcr.io/mempler/distro-mirror/ubuntu:main
     ports:
       - "20451:80"
     volumes:
