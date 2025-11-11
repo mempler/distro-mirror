@@ -7,7 +7,7 @@ echo "[$(date)] sync.sh started" >> /var/log/sync.log
 echo "[$(date)] Starting Arch Linux mirror sync" >> /var/log/sync.log
 
 MIRROR_DIR="/var/www/arch"
-REMOTE="rsync://mirror.rackspace.com/archlinux/"
+REMOTE="rsync://berlin.mirror.pkgbuild.com/packages/"
 
 echo "[$(date)] Mirror: $REMOTE" >> /var/log/sync.log
 echo "[$(date)] Local directory: $MIRROR_DIR" >> /var/log/sync.log
